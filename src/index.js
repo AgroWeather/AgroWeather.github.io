@@ -1,1 +1,1 @@
-console.log('hola mundo')
+require('./header')

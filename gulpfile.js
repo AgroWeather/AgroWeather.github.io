@@ -6,6 +6,14 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var babel = require('babelify');
 
+gulp.task('styles', function () {
+  gulp
+    .src('./styles/index.scss')
+    .pipe(sass())
+    .pipe(rename('app.css'))
+    .pipe(gulp.dest('public'));
+})
+
 function compile(watch) {
   var bundle = browserify('./src/index.js', {debug: true});
 
@@ -36,4 +44,4 @@ gulp.task('build', function () {
 
 gulp.task('watch', function () { return compile(true); });
 
-gulp.task('default', ['styles', 'assets', 'build']);
+gulp.task('default', ['styles', 'build']);
