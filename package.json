@@ -1,0 +1,25 @@
+{
+  "name": "agroweather.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AgroWeather/AgroWeather.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AgroWeather/AgroWeather.github.io/issues"
+  },
+  "homepage": "https://github.com/AgroWeather/AgroWeather.github.io#readme",
+  "dependencies": {
+    "materialize-css": "^0.100.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
