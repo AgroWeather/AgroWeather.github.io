@@ -1,45 +1,47 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var rename = require('gulp-rename');
+var concat = require('gulp-concat');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var babel = require('babelify');
 
 gulp.task('styles', function () {
-  gulp
-    .src('./styles/index.scss')
-    .pipe(sass())
-    .pipe(rename('app.css'))
-    .pipe(gulp.dest('public'));
+	gulp
+		.src('./styles/index.scss')
+		.pipe(sass().on('error', sass.logError))
+		.pipe(concat('styles/index.scss'))
+		.pipe(rename('app.css'))
+		.pipe(gulp.dest('public'))
 })
 
 function compile(watch) {
-  var bundle = browserify('./src/index.js', {debug: true});
+	var bundle = browserify('./src/index.js', {debug: true});
 
-  if (watch) {
-    bundle = watchify(bundle);
-    bundle.on('update', function () {
-      console.log('--> Bundling...');
-      rebundle();
-    });
-  }
+	if (watch) {
+		bundle = watchify(bundle);
+		bundle.on('update', function () {
+			console.log('--> Bundling...');
+			rebundle();
+		});
+	}
 
-  function rebundle() {
-    bundle
-      .transform(babel, { presets: [ 'es2015' ] })
-      .bundle()
-      .on('error', function (err) { console.log(err); this.emit('end') })
-      .pipe(source('index.js'))
-      .pipe(rename('app.js'))
-      .pipe(gulp.dest('public'));
-  }
+	function rebundle() {
+		bundle
+			.transform(babel, { presets: [ 'es2015' ] })
+			.bundle()
+			.on('error', function (err) { console.log(err); this.emit('end') })
+			.pipe(source('index.js'))
+			.pipe(rename('app.js'))
+			.pipe(gulp.dest('public'));
+	}
 
-  rebundle();
+	rebundle();
 }
 
 gulp.task('build', function () {
-  return compile();
+	return compile();
 });
 
 gulp.task('watch', function () { return compile(true); });

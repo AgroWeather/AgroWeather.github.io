@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "./node_modules/.bin/nodemon --watch server server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,8 +29,10 @@
     "babelify": "^8.0.0",
     "browserify": "^16.2.0",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^4.0.1",
+    "gulp-sass": "^3.2.1",
+    "nodemon": "^1.17.3",
     "vinyl-source-stream": "^2.0.0",
     "watchify": "^3.11.0"
   }
