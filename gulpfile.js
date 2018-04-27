@@ -7,6 +7,12 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var babel = require('babelify');
 
+gulp.task('assets', function () {
+	gulp
+		.src('assets/*/*')
+		.pipe(gulp.dest('public/'))
+})
+
 gulp.task('styles', function () {
 	gulp
 		.src('./styles/index.scss')
@@ -46,4 +52,4 @@ gulp.task('build', function () {
 
 gulp.task('watch', function () { return compile(true); });
 
-gulp.task('default', ['styles', 'build']);
+gulp.task('default', ['styles', 'assets', 'build']);
