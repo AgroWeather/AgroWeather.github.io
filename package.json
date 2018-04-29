@@ -13,7 +13,11 @@
 		"type": "git",
 		"url": "git+https://github.com/AgroWeather/AgroWeather.github.io.git"
 	},
-	"author": "",
+	"author": "Jorge Luis Serna <@jorgelserve>",
+	"contributors": [
+		"Kevin",
+		"Frank"
+	],
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/AgroWeather/AgroWeather.github.io/issues"
