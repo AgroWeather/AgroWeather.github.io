@@ -4,9 +4,10 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "./node_modules/.bin/nodemon --watch server server/index.js && npm run watch",
+		"start": "./node_modules/.bin/nodemon --watch server server/index.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"watch": "./node_modules/.bin/gulp watch",
+		"styles": "./node_modules/.bin/gulp styles",
 		"build": "./node_modules/.bin/gulp"
 	},
 	"repository": {
@@ -15,7 +16,7 @@
 	},
 	"author": "Jorge Luis Serna <@jorgelserve>",
 	"contributors": [
-		"Kevin",
+		"Kevin Gutierrez <@kgutierreg>",
 		"Frank"
 	],
 	"license": "ISC",
@@ -26,6 +27,7 @@
 	"dependencies": {
 		"empty-element": "^1.0.0",
 		"express": "^4.16.3",
+		"helmet": "^3.12.0",
 		"jquery": "^3.3.1",
 		"materialize-css": "^0.100.2",
 		"yo-yo": "^1.4.1"
@@ -39,6 +41,7 @@
 		"gulp-concat": "^2.6.1",
 		"gulp-rename": "^1.2.2",
 		"gulp-sass": "^3.2.1",
+		"mocha": "^5.1.1",
 		"nodemon": "^1.17.3",
 		"vinyl-source-stream": "^2.0.0",
 		"watchify": "^3.11.0"

@@ -50,6 +50,10 @@ gulp.task('build', function () {
 	return compile();
 });
 
+gulp.watch('./styles/index.scss', ['styles']);
+
 gulp.task('watch', function () { return compile(true); });
 
 gulp.task('default', ['styles', 'assets', 'build']);
+
+gulp.watch('files-to-watch', ['tasks', 'to', 'run']);

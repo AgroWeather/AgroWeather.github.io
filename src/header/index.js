@@ -7,9 +7,9 @@ empty(document.getElementById('header-container')).appendChild(yo` <nav>
 			<li>
 				<div class="user-view">
 					<div class="background">
-						<img src="images/office.jpg">
+						<img src="">
 					</div>
-					<a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+					<a href="#!user"><img class="circle" src=""></a>
 					<a href="#!name"><span class="white-text name">John Doe</span></a>
 					<a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
 		    	</div>

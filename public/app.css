@@ -3603,6 +3603,13 @@ small {
   src: url("./fonts/DIN Alternate Bold.ttf");
   font-weight: 'Bold'; }
 
+.barra-lateral {
+  border-style: solid;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100px;
+  width: 300px; }
+
 .nav-wrapper {
   background-color: #1F871E; }
 
