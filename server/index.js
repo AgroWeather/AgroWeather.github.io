@@ -6,10 +6,4 @@ app.use('/node_modules/materialize-css/sass/components/*', express.static('./nod
 
 var port = process.env.PORT || 3000
 
-app.listen(port, console.log(`listening in port ${port}
-	__________________________
-	|                         |	
-	|  http://localhost:3000  |
-	|                         |
-	---------------------------
-	`))
+app.listen(port, console.log(`listening in port ${port}\n\t\x1b[36mhttp://localhost:3000       \x1b[0m`))

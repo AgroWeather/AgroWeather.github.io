@@ -1,23 +1,17 @@
 const empty = require('empty-element')
+const card = require('./card')
 const yo = require('yo-yo')
 
+
 empty(document.getElementById('main-container')).appendChild(yo`<div class="container">
-	
 	<div class="row">
-		<div class="col s1">1</div>
-		<div class="col s1">2</div>
-		<div class="col s1">3</div>
-		<div class="col s1">4</div>
-		<div class="col s1">5</div>
-		<div class="col s1">6</div>
-		<div class="col s1">7</div>
-		<div class="col s1">8</div>
-		<div class="col s1">9</div>
-		<div class="col s1">10</div>
-		<div class="col s1">11</div>
-		<div class="col s1">12</div>
+		${card}
 	</div>
 
+	<div class="row">
+		<div class="col s12">This div is 12-columns wide on all screen sizes</div>
+		<div class="col s6">6-columns (one-half)</div>
+		<div class="col s6">6-columns (one-half)</div>
+	</div>
 
-	
 </div>`)
