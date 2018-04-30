@@ -1,7 +1,7 @@
 const empty = require('empty-element')
 const yo = require('yo-yo')
 
-empty(document.getElementById('header-container')).appendChild(yo` <nav>
+empty(document.getElementById('header-container')).appendChild(yo`<nav>
 	<div class="nav-wrapper">
 		<ul id="slide-out" class="side-nav">
 			<li>
