@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 @import "materialize.scss";
 
 @font-face {
@@ -7,22 +6,27 @@
 	src: url('./fonts/DIN Alternate Bold.ttf');
 	font-weight: 'Bold';
 }
+$primart-color: #1F871E;
 
-.barra-lateral {
-	border-style: solid;
-	overflow-y: scroll;
-	overflow-x:hidden;
-	height: 100px;
-	width: 300px;
+.agroweather {
+	color: $primart-color;
+}
 
+.signup-box {
+	background-color: white;
+	border: 1px solid #edeeee;
+	border-radius: 3px;
+	padding: 10px 0;
+	text-align: center;
 }
 
 .nav-wrapper {
-	background-color: #1F871E;
+	background-color: $primart-color;
 }
 
 body {
 	font-family: DIN Alternate;
+	background: #fafafa;
 }
 
 .brand-logo {
