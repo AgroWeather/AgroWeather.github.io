@@ -33,7 +33,7 @@ app.use(express.static('./public'))
 
 app.set('view engine', 'pug')
 
-app.get('/', checkSignIn, (req, res) => {
+app.get('/', (req, res) => {
 	res.render('index')
 })
 
@@ -48,24 +48,27 @@ app.post('/signin', (req, res) => {
 	} else {
 		Users.filter(function(user) {
 			if(user.email === req.body.email) {
-				res.send({res: 'User Already exists'})
+				res.send({
+					type: 'error',
+					message: 'El usuario ya existe'
+				})
 				// res.send('signup', {
 				// 	message: "User Already Exists! Login or choose another user id"
 				// })
+			} else {
+				Users.push({
+					email: req.body.email,
+					password: req.body.password
+				})
+
+				req.session.user = {
+					email: req.body.email,
+					password: req.body.password
+				}
+
+				res.redirect('/')
 			}
 		})
-		
-		Users.push({
-			email: req.body.email,
-			password: req.body.password
-		})
-
-		req.session.user = {
-			email: req.body.email,
-			password: req.body.password
-		}
-
-		res.redirect('/')
 	}
 	res.end()
 })
@@ -78,8 +81,8 @@ app.get('/saludo', (req, res) => {
 	res.send('hola mundo\n')
 })
 
-app.get('/api', (req, res) => {
-	res.send({nombre: 'jorge'})
+app.post('*', (req, res) => {
+	console.log(req.headers)
 })
 
 var port = process.env.PORT || 3000

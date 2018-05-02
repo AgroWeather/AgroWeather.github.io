@@ -50,7 +50,7 @@ gulp.task('build', function () {
 	return compile();
 });
 
-gulp.watch('./styles/index.scss', ['styles']);
+// gulp.watch('./styles/index.scss', ['styles']);
 
 gulp.task('watch', function () { return compile(true); });
 
