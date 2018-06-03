@@ -4,20 +4,21 @@ const yo = require('yo-yo')
 const header = require('../header')
 const card = require('./card')
 
-page('/', header, (ctx, next) => {
+page('/', header, loadData,(ctx, next) => {
 	empty(document.getElementById('main-container')).appendChild(yo`<div>
-		${card}
+
 	</div>`)
 	
-	async function call() {
-		try {
-			var pictures = await fetch('/api').then(res => res.json())
-			console.log(pictures)
-		} catch (err) {
-			return console.log(err)
-		}
-	}
-
-	call()
 })
 
+
+async function loadData(ctx, next) {
+	try {
+		ctx.data = await fetch('./api/sensors', {method: 'POST'}).then(res => res.json())
+		console.log(ctx.data)
+		next()
+	} catch (err) {
+		return console.error(err)
+	}
+	next()
+}

@@ -17,16 +17,45 @@ app.disable('x-powered-by')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) 
-app.use(upload.array())
-app.use(cookieParser())
-app.use(session({
-	secret: "cookie_secret",
-	resave: false,
-	saveUninitialized: false,
-	secure: false,
-	maxAge: null 
-}))
-
+// app.use(upload.array())
+// app.use(cookieParser())
+// app.use(session({
+// 	secret: "cookie_secret",
+// 	resave: false,
+// 	saveUninitialized: false,
+// 	secure: false,
+// 	maxAge: null 
+// }))
+var station = {
+	humedad: [
+		{
+			value: 35,
+			timestamp: new Date("2018-06-03T12:00:00Z")
+		},
+		{
+			value: 34,
+			timestamp: new Date("2018-06-03T13:00:00Z")
+		},
+		{
+			value: 31,
+			timestamp: new Date("2018-06-03T14:00:00Z")
+		}
+	],
+	temperatura: [
+		{
+			value: 18,
+			timestamp: new Date("2018-06-03T12:00:00Z")
+		},
+		{
+			value: 20,
+			timestamp: new Date("2018-06-03T13:00:00Z")
+		},
+		{
+			value: 25,
+			timestamp: new Date("2018-06-03T14:00:00Z")
+		}
+	]
+}
 
 app.use(helmet())
 app.use(express.static('./public'))
@@ -37,41 +66,6 @@ app.get('/', (req, res) => {
 	res.render('index')
 })
 
-var Users = [{
-	email: 'jorgelserve@icloud.com',
-	password: '1710jo'
-}]
-
-app.post('/signin', (req, res) => {
-	if(!req.body.email || !req.body.password) {
-		res.send("Invalid details!")
-	} else {
-		Users.filter(function(user) {
-			if(user.email === req.body.email) {
-				res.send({
-					type: 'error',
-					message: 'El usuario ya existe'
-				})
-				// res.send('signup', {
-				// 	message: "User Already Exists! Login or choose another user id"
-				// })
-			} else {
-				Users.push({
-					email: req.body.email,
-					password: req.body.password
-				})
-
-				req.session.user = {
-					email: req.body.email,
-					password: req.body.password
-				}
-
-				res.redirect('/')
-			}
-		})
-	}
-	res.end()
-})
 
 app.get('/signin', (req, res) => {
 	res.render('index')
@@ -81,22 +75,10 @@ app.get('/saludo', (req, res) => {
 	res.send('hola mundo\n')
 })
 
-app.post('*', (req, res) => {
-	console.log(req.headers)
+app.post('/api/sensors', (req, res) => {
+	res.send(station)
 })
 
 var port = process.env.PORT || 3000
 
 app.listen(port, console.log(`listening in port ${port}\n\t\x1b[36mhttp://localhost:${port} \x1b[0m`))
-
-
-
-function checkSignIn(req, res, next){
-	if(req.session.user){
-		next();     //If session exists, proceed to page
-	} else {
-		var err = new Error("Not logged in!");
-		console.log(req.session.user);
-		next(err);  //Error, trying to access unauthorized page!
-	}
-}
