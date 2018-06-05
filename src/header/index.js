@@ -7,7 +7,6 @@ module.exports = function (ctx, next) {
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo">AGRWEATHER</a>
 		</div>
-		<canvas id="myChart" height="50" width="100"></canvas>
 	</nav>`)
 	next()
 }

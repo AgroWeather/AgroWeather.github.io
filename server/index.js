@@ -7,16 +7,18 @@ const helmet = require('helmet')
 const pug = require('pug')
 
 
-const upload = multer() 
+const upload = multer()
 const app = express()
 
 app.disable('x-powered-by')
 
+app.use(helmet())
+app.use(express.static('./public'))
 
-
+app.set('view engine', 'pug')
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) 
+app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(upload.array())
 // app.use(cookieParser())
 // app.use(session({
@@ -24,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // 	resave: false,
 // 	saveUninitialized: false,
 // 	secure: false,
-// 	maxAge: null 
+// 	maxAge: null
 // }))
 var station = {
 	humedad: [
@@ -56,11 +58,6 @@ var station = {
 		}
 	]
 }
-
-app.use(helmet())
-app.use(express.static('./public'))
-
-app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
 	res.render('index')
