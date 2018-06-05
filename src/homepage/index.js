@@ -1,36 +1,38 @@
 const empty = require('empty-element')
 const page = require('page')
 const yo = require('yo-yo')
+const moment = require('moment')
 const header = require('../header')
 const card = require('./card')
+require('chart.js')
+
+moment.defineLocale('es', null)
 
 page('/', header, loadData,(ctx, next) => {
 	empty(document.getElementById('main-container')).appendChild(yo`<div>
-		${card()}
+		${card(ctx.data)}
 	</div>`)
-	var ctx = document.getElementById('myChart').getContext('2d');
-	var chart = new Chart(ctx, {
-    // The type of chart we want to create
-	    type: 'line',
+	ctx.data.map((element) => {
+		new Chart(document.getElementById(`${element.sensor}Chart`).getContext('2d'), {
+			// The type of chart we want to create
+			type: 'line',
 
-	    // The data for our dataset
-	    data: {
-	        labels: ["January", "February", "March", "April", "May", "June", "July"],
-	        datasets: [{
-	            label: "My First dataset",
-	            borderColor: 'rgb(255, 99, 132)',
-	            data: [0, 10, 5, 2, 20, 30, 45],
-	        },
-	        {
-	            label: "My First dataset",
-	            borderColor: 'rgb(255, 9, 132)',
-	            data: [1, 30, 35, 32, 20, 30, 45],
-	        }]
-	    },
+			// The data for our dataset
+			data: {
+				labels: Array.from(element.data, x => moment().startOf(x.timestamp).fromNow()),
+				datasets: [{
+					label: element.sensor,
+					borderColor: 'rgb(255, 99, 132)',
+					data: Array.from(element.data, x => x.value)
+				}]
+			},
 
-	    // Configuration options go here
-	    options: {}
-	});
+			// Configuration options go here
+			options: {}
+		})
+	})
+	
+	
 })
 
 

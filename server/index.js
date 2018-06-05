@@ -28,36 +28,43 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // 	secure: false,
 // 	maxAge: null
 // }))
-var station = {
-	humedad: [
-		{
-			value: 35,
-			timestamp: new Date("2018-06-03T12:00:00Z")
-		},
-		{
-			value: 34,
-			timestamp: new Date("2018-06-03T13:00:00Z")
-		},
-		{
-			value: 31,
-			timestamp: new Date("2018-06-03T14:00:00Z")
-		}
-	],
-	temperatura: [
-		{
-			value: 18,
-			timestamp: new Date("2018-06-03T12:00:00Z")
-		},
-		{
-			value: 20,
-			timestamp: new Date("2018-06-03T13:00:00Z")
-		},
-		{
-			value: 25,
-			timestamp: new Date("2018-06-03T14:00:00Z")
-		}
-	]
-}
+var station = [
+	{
+		sensor: "Humendad",
+		data: [
+			{
+				value: 35,
+				timestamp: new Date("2018-06-03T12:00:00Z")
+			},
+			{
+				value: 34,
+				timestamp: new Date("2018-06-03T13:00:00Z")
+			},
+			{
+				value: 31,
+				timestamp: new Date("2018-06-03T14:00:00Z")
+			}
+		]
+	},
+	{
+		sensor: "Temperatura",
+		data: [
+			{
+				value: 18,
+				timestamp: new Date("2018-06-03T12:00:00Z")
+			},
+			{
+				value: 20,
+				timestamp: new Date("2018-06-03T13:00:00Z")
+			},
+			{
+				value: 25,
+				timestamp: new Date("2018-06-03T14:00:00Z")
+			}
+		]
+	}
+]
+
 
 app.get('/', (req, res) => {
 	res.render('index')
