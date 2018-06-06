@@ -70,9 +70,27 @@ app.get('/', (req, res) => {
 	res.render('index')
 })
 
+app.post('/last/:sensor', (req, res) => {
+	if (req.params.sensor == 'humedad') {
+		res.send(station[0].data[station[0].data.length -1])
+	} else {
+		res.send(station[1].data[station[0].data.length -1])
+	}
+})
 
-app.get('/signin', (req, res) => {
-	res.render('index')
+app.post('/adddata', (req, res) => {
+	if (req.headers.humedad) {
+		station[0].data.push({
+			value: req.headers.humedad,
+			timestamp: new Date
+		})
+	} else {
+		station[1].data.push({
+			value: req.headers.temperatura,
+			timestamp: new Date
+		})
+	}
+	res.send('OK')
 })
 
 app.get('/saludo', (req, res) => {

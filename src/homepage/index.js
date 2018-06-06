@@ -5,7 +5,8 @@ const moment = require('moment')
 const header = require('../header')
 const card = require('./card')
 require('chart.js')
-
+var chart = []
+var control = 0
 moment.defineLocale('es', null)
 
 page('/', header, loadData,(ctx, next) => {
@@ -13,7 +14,7 @@ page('/', header, loadData,(ctx, next) => {
 		${card(ctx.data)}
 	</div>`)
 	ctx.data.map((element) => {
-		new Chart(document.getElementById(`${element.sensor}Chart`).getContext('2d'), {
+		chart[control] = new Chart(document.getElementById(`${element.sensor}Chart`).getContext('2d'), {
 			// The type of chart we want to create
 			type: 'line',
 
@@ -30,9 +31,14 @@ page('/', header, loadData,(ctx, next) => {
 			// Configuration options go here
 			options: {}
 		})
+		control++
 	})
+	console.log(chart)
 	
-	
+	setTimeout(() => {
+		actualizarTemperatura()
+		actualizarHumedad()
+	}, 1000)
 })
 
 
@@ -46,3 +52,35 @@ async function loadData(ctx, next) {
 	}
 	next()
 }
+
+async function actualizarTemperatura() {
+	try {
+		var res = await fetch('./last/temperatura', {method: 'POST'}).then(res => res.json())
+		console.log(res)
+		addData(chart[1], res)
+	} catch (err) {
+		return console.error(err)
+	}
+}
+
+async function actualizarHumedad() {
+	try {
+		var res = await fetch('./last/humedad', {method: 'POST'}).then(res => res.json())
+		console.log(res)
+		addData(chart[0], res)
+	} catch (err) {
+		return console.error(err)
+	}
+}
+
+
+function addData(chart, data) {
+    chart.data.labels.push(moment().startOf(data.timestamp).fromNow());
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data.value);
+    });
+    chart.update();
+}
+
+
+
