@@ -34,7 +34,7 @@ var station = [
 		data: [
 			{
 				value: 35,
-				timestamp: new Date("2018-06-03T12:00:00Z")
+				timestamp: new Date("2012-06-03T12:00:00Z")
 			},
 			{
 				value: 34,
@@ -62,6 +62,23 @@ var station = [
 				timestamp: new Date("2018-06-03T14:00:00Z")
 			}
 		]
+	},
+	{
+		sensor: "Viento",
+		data: [
+			{
+				value: 18,
+				timestamp: new Date("2018-06-03T12:00:00Z")
+			},
+			{
+				value: 20,
+				timestamp: new Date("2018-06-03T13:00:00Z")
+			},
+			{
+				value: 25,
+				timestamp: new Date("2018-06-03T14:00:00Z")
+			}
+		]
 	}
 ]
 
@@ -72,25 +89,26 @@ app.get('/', (req, res) => {
 
 app.post('/last/:sensor', (req, res) => {
 	if (req.params.sensor == 'humedad') {
-		res.send(station[0].data[station[0].data.length -1])
+		res.send(station[0].data)
 	} else {
-		res.send(station[1].data[station[0].data.length -1])
+		res.send(station[1].data)
 	}
 })
 
 app.post('/adddata', (req, res) => {
 	if (req.headers.humedad) {
 		station[0].data.push({
-			value: req.headers.humedad,
+			value: parseInt(req.headers.humedad),
 			timestamp: new Date
 		})
+		res.end('agregado')
 	} else {
 		station[1].data.push({
-			value: req.headers.temperatura,
+			value: parseInt(req.headers.temperatura),
 			timestamp: new Date
 		})
+		res.end('agregado')
 	}
-	res.send('OK')
 })
 
 app.get('/saludo', (req, res) => {

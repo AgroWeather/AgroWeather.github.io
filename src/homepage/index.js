@@ -20,7 +20,7 @@ page('/', header, loadData,(ctx, next) => {
 
 			// The data for our dataset
 			data: {
-				labels: Array.from(element.data, x => moment().startOf(x.timestamp).fromNow()),
+				labels: Array.from(element.data, x => moment(x.timestamp).startOf().fromNow()),
 				datasets: [{
 					label: element.sensor,
 					borderColor: 'rgb(255, 99, 132)',
@@ -35,10 +35,10 @@ page('/', header, loadData,(ctx, next) => {
 	})
 	console.log(chart)
 	
-	setTimeout(() => {
+	setInterval(() => {
 		actualizarTemperatura()
 		actualizarHumedad()
-	}, 1000)
+	}, 2000)
 })
 
 
@@ -56,7 +56,6 @@ async function loadData(ctx, next) {
 async function actualizarTemperatura() {
 	try {
 		var res = await fetch('./last/temperatura', {method: 'POST'}).then(res => res.json())
-		console.log(res)
 		addData(chart[1], res)
 	} catch (err) {
 		return console.error(err)
@@ -66,7 +65,6 @@ async function actualizarTemperatura() {
 async function actualizarHumedad() {
 	try {
 		var res = await fetch('./last/humedad', {method: 'POST'}).then(res => res.json())
-		console.log(res)
 		addData(chart[0], res)
 	} catch (err) {
 		return console.error(err)
@@ -75,11 +73,9 @@ async function actualizarHumedad() {
 
 
 function addData(chart, data) {
-    chart.data.labels.push(moment().startOf(data.timestamp).fromNow());
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data.value);
-    });
-    chart.update();
+	chart.data.labels = Array.from(data, x => moment(x.timestamp).startOf().fromNow())
+	chart.data.datasets.data = Array.from(data, x => x.value)
+	setTimeout(() => chart.update(), 500)
 }
 
 
