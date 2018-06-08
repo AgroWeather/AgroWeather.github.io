@@ -62,23 +62,6 @@ var station = [
 				timestamp: new Date("2018-06-03T14:00:00Z")
 			}
 		]
-	},
-	{
-		sensor: "Viento",
-		data: [
-			{
-				value: 18,
-				timestamp: new Date("2018-06-03T12:00:00Z")
-			},
-			{
-				value: 20,
-				timestamp: new Date("2018-06-03T13:00:00Z")
-			},
-			{
-				value: 25,
-				timestamp: new Date("2018-06-03T14:00:00Z")
-			}
-		]
 	}
 ]
 
@@ -96,6 +79,7 @@ app.post('/last/:sensor', (req, res) => {
 })
 
 app.post('/adddata', (req, res) => {
+	console.log('Agregado')
 	if (req.headers.humedad) {
 		station[0].data.push({
 			value: parseInt(req.headers.humedad),
